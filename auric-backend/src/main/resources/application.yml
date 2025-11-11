@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: auric-backend
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/auric?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate        # OK for local; switch to 'validate' + Flyway later
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.jdbc.time_zone: UTC
+      hibernate.default_catalog: auric
+      defer-datasource-initialization: true
+    open-in-view: false
+
+security:
+  jwt:
+    secret: "change-this-to-a-256-bit-random-string"
+    access-token-minutes: 60
+    refresh-token-days: 7
+
+  sql:
+    init:
+      mode: never     # run data.sql even for non-embedded DBs
+      platform: mysql  # optional; allows data-mysql.sql naming
+
+flyway:
+  enabled: true
+  locations: classpath:db/migration
+
+  logging:
+    level:
+      org.springframework.jdbc.datasource.init: DEBUG
+
+
+
+server:
+  port: 8080
+
+# Optional: actuator exposure during dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+#    config-url: /swagger-ui/swagger-config.yaml
+    custom-css: swagger-ui/swagger-ui-custom.css
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

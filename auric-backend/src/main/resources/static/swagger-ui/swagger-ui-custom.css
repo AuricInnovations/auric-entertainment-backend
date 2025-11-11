@@ -1,0 +1,25 @@
+
+.swagger-ui .topbar-wrapper .link svg {
+    display: none !important;
+}
+
+.swagger-ui .topbar-wrapper .link {
+
+    height: 40px !important;
+    width: 200px !important;
+
+    background-image: url('../images/AuricLogo.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-position: left center !important;
+
+
+    display: block !important;
+
+
+    margin-left: 10px !important;
+}
+
+.swagger-ui .topbar {
+    background-color: #000000 !important;
+}
