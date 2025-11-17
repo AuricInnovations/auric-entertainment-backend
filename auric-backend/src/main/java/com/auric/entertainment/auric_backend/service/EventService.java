@@ -20,11 +20,20 @@ public class EventService {
     }
 
     public Event get(Long id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found: " + id));
+        return repo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found: " + id));
     }
 
     @Transactional
     public Event create(Event event) {
+        // never trust incoming ID
+        event.setId(null);
+
+        // 🔑 if client didn't send published, default to true
+        if (event.getPublished() == null) {
+            event.setPublished(Boolean.TRUE);
+        }
+
         return repo.save(event);
     }
 
@@ -37,9 +46,9 @@ public class EventService {
         if (req.venue() != null)
             existing.setVenue(req.venue());
         if (req.startTime() != null)
-            existing.setStartTime(OffsetDateTime.from(req.startTime()));
+            existing.setStartTime(req.startTime().atOffset(java.time.ZoneOffset.UTC));
         if (req.endTime() != null)
-            existing.setEndTime(OffsetDateTime.from(req.endTime()));
+            existing.setEndTime(req.endTime().atOffset(java.time.ZoneOffset.UTC));
         if (req.capacity() != null)
             existing.setCapacity(req.capacity());
         if (req.price() != null)
@@ -48,6 +57,8 @@ public class EventService {
             existing.setDescription(req.description());
         if (req.published() != null)
             existing.setPublished(req.published());
+        if (req.coverImageUrl() != null)
+            existing.setCoverImageUrl(req.coverImageUrl());
 
         return repo.save(existing);
     }

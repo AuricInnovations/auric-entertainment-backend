@@ -29,7 +29,7 @@ public class AuthService {
         if (repo.existsByEmail(req.email())) throw new IllegalArgumentException("Email already exists");
         var user = new UserEntity();
         user.setEmail(req.email().toLowerCase());
-        user.setFullName(req.fullName());
+        user.setFullName(req.fullname());
         user.setPassword(encoder.encode(req.password()));
         user.setRoles(Set.of(Role.USER));
         repo.save(user);

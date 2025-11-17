@@ -5,10 +5,7 @@ import com.auric.entertainment.auric_backend.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/bookings")
@@ -17,8 +14,11 @@ public class AdminBookingController {
     private final BookingService service;
 
     @GetMapping
-    public Page<BookingResponse> list(Pageable pageable) {
-        return service.listAll(pageable);
+    public Page<BookingResponse> list(
+            @RequestParam(required = false) Long eventId,
+            Pageable pageable
+    ) {
+        return service.listAll(pageable, eventId);
     }
 
     @GetMapping("/{id}")

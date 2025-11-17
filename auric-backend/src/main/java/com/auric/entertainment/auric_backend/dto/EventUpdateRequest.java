@@ -8,5 +8,6 @@ public record EventUpdateRequest(
         Integer capacity,
         java.math.BigDecimal price,
         String description,
-        Boolean published
+        Boolean published,
+        String coverImageUrl
 ) {}

@@ -2,6 +2,7 @@ package com.auric.entertainment.auric_backend.config;
 
 import com.auric.entertainment.auric_backend.security.AppUserDetailsService;
 import com.auric.entertainment.auric_backend.security.JwtAuthFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,23 +37,45 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtFilter,
                                            DaoAuthenticationProvider provider) throws Exception {
         http
-                .cors(c -> {})                 // <— enable CORS support
+                .cors(c -> {}) // supply a CorsConfigurationSource bean if needed
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(provider)
+                .exceptionHandling(e -> e
+                        // 401 for unauthenticated access
+                        .authenticationEntryPoint((req, res, ex) -> {
+                            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            res.setContentType("application/json");
+                            res.getWriter().write("{\"message\":\"Unauthorized\"}");
+                        })
+                        // 403 for authenticated but forbidden
+                        .accessDeniedHandler((req, res, ex) -> {
+                            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            res.setContentType("application/json");
+                            res.getWriter().write("{\"message\":\"Forbidden\"}");
+                        })
+                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/error",
+                        .requestMatchers(
+                                "/error",
                                 "/favicon.ico",
                                 "/images/AuricLogo.png",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api/auth/**", "/actuator/health").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()   // public browsing
+                                "/swagger-ui.html",
+                                "/actuator/health"
+                        ).permitAll()
+                        .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/leads").permitAll()
+                        .requestMatchers("/api/auth/me").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/gallery").permitAll()
+                        .requestMatchers("/api/admin/gallery/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 

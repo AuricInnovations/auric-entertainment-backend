@@ -27,6 +27,9 @@ public class Event {
 
     private Boolean published = true;
 
+    @Column(name = "cover_image_url")
+    private String coverImageUrl;
+
     public Long getId() {
         return id;
     }
@@ -99,7 +102,13 @@ public class Event {
         this.published = published;
     }
 
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
 
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
+    }
 
 
 }

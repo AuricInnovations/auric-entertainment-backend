@@ -51,8 +51,14 @@ public class BookingService {
                 .stream().map(this::toDto).toList();
     }
     @Transactional(readOnly = true)
-    public Page<BookingResponse> listAll(Pageable pageable) {
-        return bookingRepo.findAll(pageable).map(this::toDto);
+    public Page<BookingResponse> listAll(Pageable pageable, Long eventId) {
+        Page<Booking> page;
+        if (eventId != null) {
+            page = bookingRepo.findByEventId(eventId, pageable);
+        } else {
+            page = bookingRepo.findAll(pageable);
+        }
+        return page.map(this::toDto);
     }
     @Transactional(readOnly = true)
     public BookingResponse getOne(Long id) {

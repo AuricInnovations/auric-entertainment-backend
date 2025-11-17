@@ -13,16 +13,14 @@ import java.util.List;
 public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        // TODO: replace "*" with your frontend origin, e.g., http://localhost:5173
-        config.addAllowedOriginPattern("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+    CorsConfigurationSource corsConfigurationSource() {
+        var cfg = new CorsConfiguration();
+        cfg.setAllowedOrigins(List.of("http://localhost:5173"));
+        cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        cfg.setAllowedHeaders(List.of("Authorization","Content-Type"));
+        cfg.setAllowCredentials(true);
+        var src = new UrlBasedCorsConfigurationSource();
+        src.registerCorsConfiguration("/**", cfg);
+        return src;
     }
 }
