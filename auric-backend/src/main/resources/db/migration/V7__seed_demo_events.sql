@@ -1,11 +1,11 @@
 -- Align schema to what the code expects (MySQL 8+)
 ALTER TABLE events
-  ADD COLUMN IF NOT EXISTS start_time DATETIME NULL,
-  ADD COLUMN IF NOT EXISTS end_time   DATETIME NULL,
-  ADD COLUMN IF NOT EXISTS capacity   INT NULL,
-  ADD COLUMN IF NOT EXISTS price      DECIMAL(10,2) NULL,
-  ADD COLUMN IF NOT EXISTS description TEXT NULL,
-  ADD COLUMN IF NOT EXISTS published  TINYINT(1) NOT NULL DEFAULT 1;
+  ADD COLUMN  start_time DATETIME NULL,
+  ADD COLUMN end_time   DATETIME NULL,
+  ADD COLUMN  capacity   INT NULL,
+  ADD COLUMN  price      DECIMAL(10,2) NULL,
+  ADD COLUMN  description TEXT NULL,
+  ADD COLUMN  published  TINYINT(1) NOT NULL DEFAULT 1;
 
 -- Backfill from legacy columns if they existed
 UPDATE events

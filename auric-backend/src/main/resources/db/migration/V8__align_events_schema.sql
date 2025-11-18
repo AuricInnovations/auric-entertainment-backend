@@ -1,11 +1,11 @@
 -- Add missing columns (idempotent guards where helpful)
 ALTER TABLE events
-  ADD COLUMN IF NOT EXISTS start_time DATETIME NULL,
-  ADD COLUMN IF NOT EXISTS end_time   DATETIME NULL,
-  ADD COLUMN IF NOT EXISTS capacity   INT NULL,
-  ADD COLUMN IF NOT EXISTS price      DECIMAL(10,2) NULL,
-  ADD COLUMN IF NOT EXISTS description TEXT NULL,
-  ADD COLUMN IF NOT EXISTS published  TINYINT(1) NOT NULL DEFAULT 1;
+  ADD COLUMN  start_time DATETIME NULL,
+  ADD COLUMN  end_time   DATETIME NULL,
+  ADD COLUMN  capacity   INT NULL,
+  ADD COLUMN  price      DECIMAL(10,2) NULL,
+  ADD COLUMN  description TEXT NULL,
+  ADD COLUMN  published  TINYINT(1) NOT NULL DEFAULT 1;
 
 -- Backfill new columns from legacy ones if present
 UPDATE events
@@ -19,4 +19,4 @@ SET
 
 -- Bookings: ensure 'status' exists if you had an older table
 ALTER TABLE bookings
-  ADD COLUMN IF NOT EXISTS status VARCHAR(32) NOT NULL DEFAULT 'PENDING';
+  ADD COLUMN  status VARCHAR(32) NOT NULL DEFAULT 'PENDING';

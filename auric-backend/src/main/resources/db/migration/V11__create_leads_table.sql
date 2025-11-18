@@ -17,5 +17,5 @@ CREATE TABLE IF NOT EXISTS leads (
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
-CREATE INDEX IF NOT EXISTS idx_leads_email ON leads(email);
-CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at);
+CREATE INDEX  idx_leads_email ON leads(email);
+CREATE INDEX  idx_leads_created_at ON leads(created_at);
