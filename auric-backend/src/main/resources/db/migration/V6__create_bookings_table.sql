@@ -13,5 +13,5 @@ CREATE TABLE IF NOT EXISTS bookings (
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
-CREATE INDEX IF idx_bookings_event ON bookings(event_id);
-CREATE INDEX IF idx_bookings_email ON bookings(email);
+CREATE INDEX idx_bookings_event ON bookings(event_id);
+CREATE INDEX idx_bookings_email ON bookings(email);
