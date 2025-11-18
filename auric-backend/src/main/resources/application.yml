@@ -16,7 +16,7 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.jdbc.time_zone: UTC
-      hibernate.default_catalog: auric
+#      hibernate.default_catalog: auric
       defer-datasource-initialization: true
     open-in-view: false
 
