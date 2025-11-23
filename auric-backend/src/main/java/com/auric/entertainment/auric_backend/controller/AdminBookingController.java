@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin/bookings")
 @RequiredArgsConstructor
 public class AdminBookingController {
+
     private final BookingService service;
 
     @GetMapping
@@ -24,5 +25,10 @@ public class AdminBookingController {
     @GetMapping("/{id}")
     public BookingResponse get(@PathVariable Long id) {
         return service.getOne(id);
+    }
+
+    @PatchMapping("/{id}/confirm")
+    public BookingResponse confirm(@PathVariable Long id) {
+        return service.confirmBooking(id);
     }
 }

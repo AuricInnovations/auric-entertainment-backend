@@ -57,6 +57,13 @@ springdoc:
 #    config-url: /swagger-ui/swagger-config.yaml
     custom-css: swagger-ui/swagger-ui-custom.css
 
+
+whatsapp:
+  base-url: https://graph.facebook.com/v22.0
+  phone-number-id: 859310460603594
+  access-token: EAATXKCT0q2QBQEMlMMr9wpZCGMxAiUZAJ8OvySPcNbNUZByXZB2ad73xYVtsBuWxQcIWjfQ6ZApYvszDkf35V30V0mY4xVMOdOrK5ZBUs43uzOV76znZChvzRZCldDouPdU6FYpOWiZB05syWtM0z0bBbbjuEjTL71828rlFk8craZCQRpnhGm40FjLa7nhpj2TxxQvtwfyRPDQllkBIBkZAEpWZAFHN0ks9JB5Rdq3fFBDUfaSgAXbdpjJy2KpuLTMMZCIEJREWZAgxpfmuG4c7nb4BAraDqjZCIvl1FZC0zAZDZD
+  target-number: "60178328742"
+
 logging:
   level:
     org:

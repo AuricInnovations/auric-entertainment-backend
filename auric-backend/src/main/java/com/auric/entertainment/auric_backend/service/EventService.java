@@ -28,8 +28,6 @@ public class EventService {
     public Event create(Event event) {
         // never trust incoming ID
         event.setId(null);
-
-        // 🔑 if client didn't send published, default to true
         if (event.getPublished() == null) {
             event.setPublished(Boolean.TRUE);
         }
