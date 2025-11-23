@@ -31,9 +31,9 @@ security:
       mode: never     # run data.sql even for non-embedded DBs
       platform: mysql  # optional; allows data-mysql.sql naming
 
-flyway:
-  enabled: true
-  locations: classpath:db/migration
+#flyway:
+#  enabled: true
+#  locations: classpath:db/migration
 
   logging:
     level:
