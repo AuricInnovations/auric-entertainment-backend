@@ -4,9 +4,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/auric?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -16,7 +16,7 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate.jdbc.time_zone: UTC
-      hibernate.default_catalog: auric
+#      hibernate.default_catalog: auric
       defer-datasource-initialization: true
     open-in-view: false
 
@@ -31,9 +31,9 @@ security:
       mode: never     # run data.sql even for non-embedded DBs
       platform: mysql  # optional; allows data-mysql.sql naming
 
-#flyway:
-#  enabled: true
-#  locations: classpath:db/migration
+flyway:
+  enabled: true
+  locations: classpath:db/migration
 
   logging:
     level:
@@ -56,13 +56,6 @@ springdoc:
     path: /swagger-ui
 #    config-url: /swagger-ui/swagger-config.yaml
     custom-css: swagger-ui/swagger-ui-custom.css
-
-
-whatsapp:
-  base-url: https://graph.facebook.com/v22.0
-  phone-number-id: 859310460603594
-  access-token: EAATXKCT0q2QBQEMlMMr9wpZCGMxAiUZAJ8OvySPcNbNUZByXZB2ad73xYVtsBuWxQcIWjfQ6ZApYvszDkf35V30V0mY4xVMOdOrK5ZBUs43uzOV76znZChvzRZCldDouPdU6FYpOWiZB05syWtM0z0bBbbjuEjTL71828rlFk8craZCQRpnhGm40FjLa7nhpj2TxxQvtwfyRPDQllkBIBkZAEpWZAFHN0ks9JB5Rdq3fFBDUfaSgAXbdpjJy2KpuLTMMZCIEJREWZAgxpfmuG4c7nb4BAraDqjZCIvl1FZC0zAZDZD
-  target-number: "60178328742"
 
 logging:
   level:
