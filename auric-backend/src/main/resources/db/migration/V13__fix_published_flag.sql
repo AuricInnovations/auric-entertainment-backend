@@ -1,2 +1,0 @@
-ALTER TABLE events
-    MODIFY published TINYINT(1) NOT NULL DEFAULT 1;
