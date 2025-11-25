@@ -34,6 +34,8 @@ security:
 # flyway:
 #   enabled: true
 #   locations: classpath:db/migration
+  flyway:
+    enabled: false
 
   logging:
     level:
